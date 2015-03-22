@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.0.7 (451372)"/><meta name="keywords" content="datatime"/><meta name="author" content="ashley17061@gmail.com"/><meta name="created" content="2015-02-11 14:53:04 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2015-03-22 14:31:35 +0000"/><title>20150211_DataTime</title></head><body>
+<div>1.  Examining the quality of the illumina data that are returned from the sequencing center</div>
+<div>(PHRED scores :  Phred 40 / 60)</div>
+<div>Q30 “quality score" :  1:1000 probability of an incorrect base</div>
+<div>old illumina data is under a different quality scale</div>
+<div>More info is here:</div>
+<div><a href="http://www.illumina.com/documents/products/technotes/technote_Q-Scores.pdf" style="font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">http://www.illumina.com/documents/products/technotes/technote_Q-Scores.pdf</a><br/></div>
+<div><br/></div>
+<div>view the gz file</div>
+<div>&gt;gunzip FILENAME</div>
+<div>&gt;head FILENAME</div>
+<div>&gt;grep -c “@HWI” FILENAME</div>
+<div>the number of sequences in the file. <b> This number should match the PF Reads in the SeqProduction file for the sample.  </b></div>
+<div>sanity check:  you can also use</div>
+<div>&gt;module load QIIME</div>
+<div>&gt;count_seqs.py -i FILENAME </div>
+<div>This number should match the number above and the number in the excel SeqProduction file.</div>
+<div><br/></div>
+<div>Make data readonly so that they can’t delete the raw sequence data</div>
+<div><br/></div>
+<div> md5.txt = “hash table” or “hash map” ; not specific to illumine data, all files downloaded (e.g., movies, music) will have one associated</div>
+<div>hash (random string of numbers/letter) followed by names of each sample</div>
+<div>Can make sure the files downloaded properly (not truncated, no errors)</div>
+<div><a href="http://en.wikipedia.org/wiki/Hash_table">http://en.wikipedia.org/wiki/Hash_table</a><br/></div>
+<div><br/></div>
+<div>&gt;md5sum FILENAME </div>
+<div>hash should match with md5.txt</div>
+<div><br/></div>
+<div>Inspect "SeqProduction" file</div>
+<div>Raw clusters = all the dots</div>
+<div>PF Clusters in the Sample/Pool summary should equal the PF Reads in the RED at the sum of the column in the Sample table</div>
+<div><br/></div>
+<div>R1 / R2 -corresponding with the forward and reverse primers that together form the “bridge"</div>
+<div>PF Clusters =  “pass filter” clusters ; the difference between the Raw and PF clusters are that the filter eliminates any pairs that can’t be matched throughout the entire run</div>
+<div>R2 tails are often lower quality… is it because it is a “shorter” read (because doesn’t have barcode?)</div>
+<div><br/></div>
+<div>How to interpret Q30:</div>
+<div>From the Sample/Pool table:</div>
+<div>“91.8% of the nucleotides are, on average, above the Q30 threshold"</div>
+<div>From the Sample Name table:</div>
+<div>for sample Crab-Apple</div>
+<div>“93.1% of the nucleotides of sequences in this sample are, on average, above the Q30 threshold</div>
+<div><br/></div>
+<div>Insepcting FastQ:</div>
+<div>each fastq is four lines</div>
+<div>1.  name (header - includes sequencer, spot coordinates, flow cell, etc...)</div>
+<div>2.  actual sequence data</div>
+<div>3. spacer (starts with +)</div>
+<div>4. Quality:  q score - alpha numeric (I is a score of 40, which is a perfect score)  see below link for interpretation of alphanumeric Q score</div>
+<div><a href="http://en.wikipedia.org/wiki/FASTQ_format">http://en.wikipedia.org/wiki/FASTQ_format</a><br/></div>
+<div><br/></div>
+<div>Can run FastQC on each sample to “Sanity Check” the sequencing center’s quality assessment</div>
+<div><br/></div>
+<div>Can trim your own dataset using the FastX tool kit, recommended for 454 and not-paired-end reads</div>
+<div>Whether or not you manually trim the data depends on the </div>
+<div>1.  Platform for sequencing (454 should be trimmed)</div>
+<div>2.  Whether or not the illumina reads are paired ends.  Not paired ends may be appropriate for manual trimming</div>
+<div>3.  If paired ends, how much overlap (e.g., 100/150 overall gives more flexibility for manual trimming than 50 bp overlap)</div>
+<div>4.  For our data, we only have 50 bp overlap, so we chose not to manually trim.</div>
+<div><br/></div>
+<div>2.  Merging paired-end reads</div>
+<div>PANDAseq</div>
+<div>pandaseq -f FILENAME -r FILENAME -B ignore missing barcodes/primers -F output as fastq/include qscores  -l 253 -L 253 -o 44 -t 0.9 (IMPORTANT threshold) -w mock_com_merged.fastq -g mock_com_log.txt</div>
+<div><span style="font-size: 17px;"><span style="font-family: Menlo;"><br/></span></span></div>
+<div><span style="font-size: 17px;"><span style="font-family: Menlo;">v 2.8.1</span></span></div>
+<div><span style="font-size: 17px;"><span style="font-family: Menlo;">338,399 PF reads (from SeqProduction of mock community)</span></span></div>
+<div><span style="font-size: 17px;"><span style="font-family: Menlo;"><br/></span></span></div>
+<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">pandaseq -f Mock_Cmty_TCCTCTGTCGAC_L001_R1_001.fastq -r Mock_Cmty_TCCTCTGTCGAC_L001_R2_001.fastq -A simple_bayesian -B -F -g log.txt -l 253 -L 253 -o 47 -O 47 -t 0.9 -w output.fastq</span></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;">303146 sequences</span></span></b></div>
+<div><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></div>
+<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">pandaseq -f Mock_Cmty_TCCTCTGTCGAC_L001_R1_001.fastq -r Mock_Cmty_TCCTCTGTCGAC_L001_R2_001.fastq -A simple_bayesian -B -F -g log.txt -l 248 -L 253 -o 47 -O 47 -t 0.9 -w output.fastq</span></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;">303146 sequences</span></span></b></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;">#minimum length does not matter</span></span></b></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></b></div>
+<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">pandaseq -f Mock_Cmty_TCCTCTGTCGAC_L001_R1_001.fastq -r Mock_Cmty_TCCTCTGTCGAC_L001_R2_001.fastq -A <b>pear</b> -B -F -g log.txt -l 253 -L 253 -o 47 -O 47 -t 0.9 -w output.fastq</span></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;">295261 sequences</span></span></b></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></b></div>
+<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">pandaseq -f Mock_Cmty_TCCTCTGTCGAC_L001_R1_001.fastq -r Mock_Cmty_TCCTCTGTCGAC_L001_R2_001.fastq -A <b>pear</b> -B -F -g log.txt -l 253 -L 253 -o 47 -O 47 -t <b>1.0</b> -w output.fastq</span></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;">327,529 sequences</span></span></b></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></b></div>
+<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">pandaseq -f Mock_Cmty_TCCTCTGTCGAC_L001_R1_001.fastq -r Mock_Cmty_TCCTCTGTCGAC_L001_R2_001.fastq -A <b>pear</b> -B -F -g log.txt -l 253 -L 253 -o 47 -O 47 -t <b>0.95 </b>-w output.fastq</span></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;">212,267 sequences</span></span></b></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></b></div>
+<div>
+<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">pandaseq -f Mock_Cmty_TCCTCTGTCGAC_L001_R1_001.fastq -r Mock_Cmty_TCCTCTGTCGAC_L001_R2_001.fastq -A <b>pear</b> -B -F -g log.txt -l 253 -L 253 -o 47 -O 47 -t <b>0.95 </b>-w output.fastq</span></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;">161 sequences</span></span></b></div>
+</div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></b></div>
+<div>
+<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">pandaseq -f Mock_Cmty_TCCTCTGTCGAC_L001_R1_001.fastq -r Mock_Cmty_TCCTCTGTCGAC_L001_R2_001.fastq -A simple_bayesian -B -F -g log.txt -l 253 -L 253 -o 47 -O 47 -t 0.95 -w output.fastq</span></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;">279,500 sequences</span></span></b></div>
+</div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></b></div>
+<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">pandaseq -f Mock_Cmty_TCCTCTGTCGAC_L001_R1_001.fastq -r Mock_Cmty_TCCTCTGTCGAC_L001_R2_001.fastq -A simple_bayesian -B -F -g log.txt -l 253 -L 253 -o 47 -O 47 -t 0.99 -w output.fastq</span></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;">209,910 sequences</span></span></b></div>
+<div><span style="font: 17.0px Menlo; font-variant-ligatures: no-common-ligatures"><br/></span></div>
+<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">pandaseq -f Mock_Cmty_TCCTCTGTCGAC_L001_R1_001.fastq -r Mock_Cmty_TCCTCTGTCGAC_L001_R2_001.fastq -A simple_bayesian -B -F -g log.txt -l 253 -L 253 -o 47 -O 47 -t 1.00 -w output.fastq</span></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;">318,626 sequences</span></span></b></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;">#0.99 is as stringent as we can go with the -t parameter</span></span></b></div>
+<div><b><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></b></div>
+<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures">pandaseq -f Mock_Cmty_TCCTCTGTCGAC_L001_R1_001.fastq -r Mock_Cmty_TCCTCTGTCGAC_L001_R2_001.fastq -A simple_bayesian -B -F -g log.txt -l 253 -L 253 -o 42 -O 47 -t 0.90 -w output.fastq</span><span style="font-size: 11px;"><span style="font-family: Menlo;"><br/></span></span></div>
+<div><span style="font: 11.0px Menlo; font-variant-ligatures: no-common-ligatures"><b>303,093 sequences</b></span></div>
+<div><br/></div>
+<div>#Run fastqc to check quality scores (based on PRHED +33</div>
+<div>fastqc output.fastq</div>
+<div><br/></div>
+<div>#after looking at fastqc output for PEAR t 0.9, simple_bayesian t 0.9, 0.99, we decided that we should use the simple_bayesian.</div>
+<div><br/></div>
+</body></html>

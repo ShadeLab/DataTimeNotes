@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.0.7 (451372)"/><meta name="keywords" content="datatime"/><meta name="author" content="ashley17061@gmail.com"/><meta name="created" content="2015-02-25 14:30:43 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2015-03-22 14:32:15 +0000"/><title>20150224_DataTime</title></head><body>
+<div>NOTE:  pick_open_reference_otus.py BY DEFAULT removes singletons - set the min_otu_size parameter to be 1 if you want to keep them.</div>
+<div><br/></div>
+<div><u>Part 1.  Our collective OTU picking results</u> (moving forward from the pandaseq merged reads with the 0.90 threshold and simple_bayseian algorithm)</div>
+<div><br/></div>
+<div>1.  Jackson:  usearch61 with open reference and the greengenes database</div>
+<div><span style="font-size: 12px;"><span style="font-family: Helvetica;">NOTE: *usearch61 needs to be installed separately and renamed*</span></span></div>
+<div><span style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none;"><a href="http://pick_open_reference_otus.py">pick_open_reference_otus.py</a> -i LabeledFASTA/combined_seqs.fna -o usearch61_openref_OTUS/ -m usearch61 </span><br/></div>
+<div><br/></div>
+<div>There are  9,503 OTUs detected via this method, but after inspecting the rank abundance curve, the the top 6 OTUs (most abundant) are what we expect.  The majority of remaining OTUs are doubleton and singletons, but not all.</div>
+<div>The top 6 OTUs have &gt;5000 sequence associated with them.  </div>
+<div><br/></div>
+<div>2.  Josh:  swarm - TBD</div>
+<div><br/></div>
+<div>3.  John: uclust NO prefilter</div>
+<div>~22,000 OTUs,</div>
+<div>with the .90 prefilter, got ~8,250 OTUs</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<div>John’s code:</div>
+<div><br/></div>
+<div>Without Filter </div>
+</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<div><span style="font-size: 11pt; font-family: 'Menlo Regular';">&gt;<a href="http://pick_open_reference_otus.py">pick_open_reference_otus.py</a> -i /macqiime/QIIME/Bioinformatics/mock.fna -r /macqiime/greengenes/gg_13_8_otus/rep_set/97_otus.fasta -o /macqiime/QIIME/Bioinformatics/ -f</span></div>
+</div>
+<div>
+<p style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><span style="font-size: 11pt; font-family: 'Menlo Regular';">With Filter </span></p>
+</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<div><span style="font-size: 11pt; font-family: 'Menlo Regular';">&gt;<a href="http://pick_open_reference_otus.py">pick_open_reference_otus.py</a> -i /macqiime/QIIME/Bioinformatics/mock.fna -r /macqiime/greengenes/gg_13_8_otus/rep_set/97_otus.fasta --prefilter_percent_id 0.9 -o /macqiime/QIIME/Bioinformatics/ -f</span></div>
+</div>
+<div><br/></div>
+<div>4.  Ashley:</div>
+<div>pick_open_reference_otus.py -i combined_seqs.fna -m uclust --prefilter_percent_id .95 -o uclust_openref_prefilter095/ </div>
+<div>OTUS:  4691</div>
+<div>w/ no pynast prefiler : 4691</div>
+<div><br/></div>
+<div>5.  Sang-Hoon</div>
+<div><span style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none;"><a href="http://pick_otus.py">pick_otus.py</a> -i combined_seqs.fna -m sumaclust --sumaclust_exact -o ./picked_OTUs_sumaclust_exact/ -s 0.97</span></div>
+<div><span style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none;">it showed 20,789 OTUs. </span></div>
+<div><span style="font-size: 12px;"><span style="font-family: Helvetica;"><br/></span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: Helvetica;">6.  Josh:  Trie at .97 similarity - very sucky but very fast.</span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: Helvetica;">106,722 OTUs</span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: Helvetica;"><br/></span></span></div>
+<div><u>Part 2.  Understanding the mock community results</u></div>
+<div>
+<hr/></div>
+<div>Here are Jackson’s commands from the mock-community investigation:</div>
+<div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;"># Make OTU Table from Biom Table</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">biom convert --to-tsv -i otu_table_mc2_w_tax.biom --table-type="OTU table" -o usearchopenotutable.txt --header-key taxonomy</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">#</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><br/></div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;"># Call R</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">R</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">#</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><br/></div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;"># Read Table into R</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">data=read.table("usearchopenotutable.txt", sep="\t", row.names=1)</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">#</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><br/></div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;"># Histogram of number of otus (y) containing number of sequences(x)</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">hist(data[,1])</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">#</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><br/></div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;"># Grab all of the OTUs assigned to a specific taxonomy. Example here is order Pseudomonadales.</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">po=data[grep("o__Pseudomonadales",data[,2]),]</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;"># </div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><br/></div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">#Sum the number of sequences in po</div>
+<div style="color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">sum(po[,1])</div>
+</div>
+<div style="font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<div><span style="font-size: 12px;"><span style="font-family: Helvetica;">#</span></span></div>
+</div>
+<div>
+<hr/></div>
+<div><font face="Helvetica" size="2">We explored the mock community OTUs using Jackson<span style="line-height: 17px;">’</span>s usearch61 open reference results (no prefilter).  </font></div>
+<div><span style="font-size: 12px;"><span style="font-family: Helvetica;"><br/></span></span></div>
+<div><i><span style="font-size: 12px;"><span style="font-family: Helvetica;">A few notes:</span></span></i></div>
+<div><font face="Helvetica" size="2">1.  There are 6 taxa that should be <span style="line-height: 17px;">represented</span> equally in our sample, normalized by copy of 16S rRNA genes and amount of DNA added to the sequencing reaction from each strain.  These include:  E. coli, Deinococcus thermos, Pseudomonas syringe, Flavobacterium johnsoniae, Bacillus cereus, and Burkholderia thailendensis.  </font></div>
+<div><span style="font-size: 12px;"><span style="font-family: Helvetica;">2.  The usearch61 clustering resulted in ~9,500 OTUs and 285,130 total sequences among them.</span></span></div>
+<div><span style="font-size: 12px;"><span style="font-family: Helvetica;">3.  The top 6 most abundant OTUs in the mock community were assigned taxonomy that match our expectations of the input strains.</span></span>  These top 6 OTUs were each had abundances of &gt; 5000 sequences.</div>
+<div>4.  The top 6 strains were not equally represented in their sequences.</div>
+<div><br/></div>
+<div><br/></div>
+<div>Results from usearch61 open reference, no prefilter</div>
+<table style="-evernote-table:true;border-collapse:collapse;width:100%;table-layout:fixed;margin-left:0px;">
+<tr>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div><b>OTU/ Strain</b></div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div><b>No. sequences for most abundant OTU</b></div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div><b>Total no. sequences across all OTUs of the same Order</b></div>
+</td>
+</tr>
+<tr>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>Bacillus cereus</div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>64,092</div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>74,760</div>
+</td>
+</tr>
+<tr>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>Flavo</div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>36,104</div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">41,125</td>
+</tr>
+<tr>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>E. coli</div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>30,737</div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>46,525</div>
+</td>
+</tr>
+<tr>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>Burk</div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>19,057</div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>23,088</div>
+</td>
+</tr>
+<tr>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>Deino</div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>18,285</div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>19,640</div>
+<div><br/></div>
+</td>
+</tr>
+<tr>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>Pseudo</div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>14,486</div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>19,951</div>
+</td>
+</tr>
+<tr>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div><br/></div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div><i>Total</i></div>
+</td>
+<td style="border-style:solid;border-width:1px;border-color:rgb(219,219,219);padding:10px;margin:0px;width:33.33%;">
+<div>225,089 / 285,130 total sequences </div>
+</td>
+</tr>
+</table>
+<div><br/></div>
+<div><u>Part 3.  Outstanding questions</u></div>
+<div>1.  What are the remaining ~60K sequences that are not affiliated with our 6 input taxa? </div>
+<div>     a.  contaminants?  Blast rep sequences of these OTUs to find out</div>
+<div>     b.  chimeras - perform  a chimera check on the rep sets to find out</div>
+<div>     c.  others options?</div>
+<div><b>Sang-Hoon will lead efforts to address Q1.</b></div>
+<div><b><br/></b></div>
+<div>2.  Why aren’t all of the 6 strains used to build the mock community represented equally in their sequences? </div>
+<div>     a.  Primer/amplification bias?  Use RDP probe match tools on the 16S sequences of these taxa and their close relatives to find out.  <b>John will work on 2a.</b></div>
+<div>     b.  Database coverage bias?  Are some of these lineages less represented in the databases, and so there are fewer hits using the reference method, more de novo OTUs using the open reference method, and generally fewer taxonomic assignments?  <b>Josh will work on 2b</b>.</div>
+<div>     c.  Are all copies of the 16S genes for each of our mock community strains within 97% similarity (such that they would fall into the same OTU?)?  To address this, first use the 16S genes from all of the strains and ask if they are within 97% identity.  Second, use the OTU map to identify all of the sequences affiliated with the OTUs to ask whether they proportionally represent all of the copies within a taxon.  <b>Josh will work on 2c.</b></div>
+<div><b>     </b>d.  Some taxa have an unknown sequencing bias?  We would expect that all taxa should experience sequencing error rates evenly/randomly, but it is possible that some bias may exist.  TO address this, we could examine the performance of the clustering on an in silico community that has been “biased” in either a targeted or random way (using seqTR), and ask how that bias would manefest down stream.  <i>Josh expressed interest in working on this, but we are going to table it for now.</i></div>
+<div><i><br/></i></div>
+<div>3.  How does pre-filtering influence the OTU picking?  </div>
+<div>     a.  Preliminary from Ashley and John’s uclust explorations, it seems that profiteering reduces the number of erroneous OTUs and that higher thresholds reduce even further. <b> Jackson will apply usearch61 with prefilter of 0.90 to compare with the unfiltered.</b></div>
+<div><b><br/></b></div>
+<div>4.  Do low-richness communities accumulate more sequencing errors, therefore artificially inflating the number of OTUs? To understand the influence of low richness on sequencing and propagation of errors, we can glean insights by examining the mock community, the Cen13 thermophile culture community.  Jackson had this idea, and we still need to figure out how to implement.  Would we look for more chimeras/extraneous OTUs in the thermophile culture community?  (We could systematically test this by building a few mock communities over a gradient of richness…)</div>
+<div><br/></div>
+<div>5.  (Ashley thought of this after the fact, but it) - how does OTU picking with the whole dataset impact the OTUs  picked for the mock community?  Compare the mock-only analysis with the whole-dataset analysis, after we have the algorithms chosen.</div>
+<div><br/></div>
+<div>ROCK ON, DATA TIME!</div>
+<div><br/></div>
+</body></html>
