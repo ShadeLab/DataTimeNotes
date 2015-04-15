@@ -1,7 +1,11 @@
 
 ### Text Processing with Josh
 
-Josh presents his [text processing tutorial](https://github.com/jrherr/shadelab-datatime).
+Josh presents his [text processing tutorial](https://github.com/jrherr/shadelab-datatime).  
+To clone his repository, use the command:
+```
+git clone https://github.com/jrherr/shadelab-datatime.git
+```
 
 Help forums of interest:   
 * www.biostars.org   
