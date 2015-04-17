@@ -1,25 +1,25 @@
 #Exploring different network analysis algorithms
 
 ##Basics
-Important considerations for different methods of analyses that generate networks based on pairwise correlations (e.g., between every two taxa within a community):   
-1.  Correlation coefficient - what method is used and why, what are its assumptions   
-2.  Significance - p-values (significance) and q-values (false discovery); are they based on parametric or non-parametric methods   
-3.  Thershold of correlation - after removing non-significant correlations, how/if to determine the right "cut-off" for strength of correlations   
+Important considerations for different methods of analyses that generate networks based on pairwise correlations (e.g., between every two taxa within a community):
+1.  Correlation coefficient - what method is used and why, what are its assumptions
+2.  Significance - p-values (significance) and q-values (false discovery); are they based on parametric or non-parametric methods
+3.  Thershold of correlation - after removing non-significant correlations, how/if to determine the right "cut-off" for strength of correlations
 
 ##Methods for network generation
 ###1.  eLSA /FastLSA - Furhman group, Jeong-Hoon  
 http://www.biomedcentral.com/1471-2164/14/S1/S3  
-LSA = local similarity analysis   
-Coefficient(s):  Pearson's (linear) and Local Similarity (non-linear)   
-Significance: p-value and permuted q-values   
-Threshold:  user-defined   
-Overview:  Developed for microbial fingerprinting time series data   
+LSA = local similarity analysis
+Coefficient(s):  Pearson's (linear) and Local Similarity (non-linear)
+Significance: p-value and permuted q-values
+Threshold:  user-defined
+Overview:  Developed for microbial fingerprinting time series data
 Pros:  
-* Can calculate correlations with time-lags   
-* can include replicate information   
-* non-linear LS coefficient   
-* q-value for false discovery   
-Cons:   
+* Can calculate correlations with time-lags
+* can include replicate information
+* non-linear LS coefficient
+* q-value for false discovery
+Cons:
 * computationally expensive
 * normality issues?
 * software doesn't seem to be maintained
@@ -27,58 +27,58 @@ Cons:
 ###2.  MIC/MINE - Reshef and Reshef; Sang-Hoon  
 http://www.exploredata.net/  
 http://www.ncbi.nlm.nih.gov/pubmed/?term=MINE+reshef
-Coefficient(s):  Maximal information coefficient (MIC)   
-Significance: p-value   
-Threshold:  user-defined   
-Overview:  Developed for any dataset, not microbial specific   
+Coefficient(s):  Maximal information coefficient (MIC)
+Significance: p-value
+Threshold:  user-defined
+Overview:  Developed for any dataset, not microbial specific
 Pros:  
-* Can find complex, non-linear relationships   
-* user can sort and evalute interactions by complexity of their relationships   
-Cons:   
-* manually determine mathematical form of relationships (e.g., by plotting)   
-* sensitive to small sample size, >25 points needed   
-* manual p-value adjustment needed to accomodate different samples sizes   
+* Can find complex, non-linear relationships
+* user can sort and evalute interactions by complexity of their relationships
+Cons:
+* manually determine mathematical form of relationships (e.g., by plotting)
+* sensitive to small sample size, >25 points needed
+* manual p-value adjustment needed to accomodate different samples sizes
 
 ###3.  Molecular Ecological Networks - Deng/Zhou group; Ashley  
 http://www.ncbi.nlm.nih.gov/pubmed/22646978  
 http://www.biomedcentral.com/content/pdf/1471-2105-8-299.pdf  
 http://www.sciencedirect.com/science/article/pii/S0375960106006530  
 Coefficient(s):  
-Significance: p-value   
-Threshold:  RMT reveals the point at which that the correlation coefficient becomes random to set threshold   
-Overview:  RMT developed in physics, extended to microarray and then tag-sequence data   
+Significance: p-value
+Threshold:  RMT reveals the point at which that the correlation coefficient becomes random to set threshold
+Overview:  RMT developed in physics, extended to microarray and then tag-sequence data
 Pros:  
-* non-arbitrary threshold determination   
-Cons:   
-* web-based doesn't permit user defined parameters outside of those provided   
+* non-arbitrary threshold determination
+Cons:
+* web-based doesn't permit user defined parameters outside of those provided
 
-###4.  SparCC - Friedmann group; Jackson    
+###4.  SparCC - Friedmann group; Jackson
 http://www.ncbi.nlm.nih.gov/pubmed/?term=SparCC+Friedman
-Coefficient(s):  Pearson (linear)   
-Significance: bootstrapped p-value   
-Threshold:  user-defined   
-Overview: Created for microbial (microbiome) datasets, default log-transform data to account for issues with using relative abundance data   
+Coefficient(s):  Pearson (linear)
+Significance: bootstrapped p-value
+Threshold:  user-defined
+Overview: Created for microbial (microbiome) datasets, default log-transform data to account for issues with using relative abundance data
 Pros:  
-* non-parametric p   
-* iterative removal of strong correlations so that rare taxa are not over shadowed by prevalent taxa after log transformation   
-Cons:   
-* computationally expensive to get the p-values   
-* linear interaction assumed on log-transformed dasta   
+* non-parametric p
+* iterative removal of strong correlations so that rare taxa are not over shadowed by prevalent taxa after log transformation
+Cons:
+* computationally expensive to get the p-values
+* linear interaction assumed on log-transformed dasta
 
-###5.  WGCNA - Horvath et al. BMC 2008; update in 2014, maybe new paper coming out?: Josh and John   
+###5.  WGCNA - Horvath et al. BMC 2008; update in 2014, maybe new paper coming out?: Josh and John
 http://www.ncbi.nlm.nih.gov/pubmed/19114008  
-Coefficient(s):  Pearson, spearman, or kendall (Linear)   
-Significance: p-value   
-Threshold:  weighted option: apply threshold based on exponent from the network topology    
-Overview:  Developed for microarray data, extended to microbial communities.  Relies on changes in intensity (relative abundance)   
+Coefficient(s):  Pearson, spearman, or kendall (Linear)
+Significance: p-value
+Threshold:  weighted option: apply threshold based on exponent from the network topology
+Overview:  Developed for microarray data, extended to microbial communities.  Relies on changes in intensity (relative abundance)
 Pros:  
-* non-arbitrary threshold determination   
-* workflow for how to analyze network after it is built - emphasis is on downstream analysis rather than network generation   
-Cons:   
-* linear only   
-* parametric   
+* non-arbitrary threshold determination
+* workflow for how to analyze network after it is built - emphasis is on downstream analysis rather than network generation
+Cons:
+* linear only
+* parametric
 
-###6.  Co-Neg - add-on to Cytoscape; Paul   
+###6.  Co-Neg - add-on to Cytoscape; Paul
 http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002606  
 
 
@@ -98,6 +98,7 @@ http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002606
 
 ##SparCC:  Jackson notes
 Fairly straightforward install;
+Download SparCC [here](https://bitbucket.org/yonatanf/sparcc/downloads)
 Followed the following tutorial http://psbweb05.psb.ugent.be/conet/microbialnetworks/sparcc.php
 ####Make initial correlations
 'python SparCC.py JH_OTUs_nosigs_env.txt -i 10 --cor_file=JH_OTUs_nosigs_env_sparcc.txt > sparcc.log'
@@ -106,9 +107,9 @@ Followed the following tutorial http://psbweb05.psb.ugent.be/conet/microbialnetw
 Note that you will have to make the directory Resamplings before running the above command. The programs will not automatically make that directory
 ####Calculate correlations for each replicate dataset
 './Bootstrapping.sh'
-This is a shell script I wrote to iterativley run the correlations. I will add it to the repository. 
+This is a shell script I wrote to iterativley run the correlations. I will add it to the repository.
 ####Compute p-values
-'python PseudoPvals.py JH_OTUs_nosig_env_sparcc.txt Bootstraps/sim_cor 10 -o pvals_two_sided.txt -t 'two_sided' >> sparcc.log 
+'python PseudoPvals.py JH_OTUs_nosig_env_sparcc.txt Bootstraps/sim_cor 10 -o pvals_two_sided.txt -t 'two_sided' >> sparcc.log
 
 
 ##LSA:  Jeong-Hoon notes
@@ -143,7 +144,7 @@ library("rJava", lib.loc="~/R/win-library/3.1")
 source("MINE.r")
 MINE("yoursamplename.txt","all.pairs")
 
-- output =  yoursamplename.txt,allpairs,cv=0.0,B=n^0.6,Status.txt, 
+- output =  yoursamplename.txt,allpairs,cv=0.0,B=n^0.6,Status.txt,
                       yoursamplename.txt,allpairs,cv=0.0,B=n^0.6,Results.txt
 
 * Data re-sorting for cytoscape
