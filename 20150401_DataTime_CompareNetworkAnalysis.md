@@ -99,17 +99,26 @@ http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1002606
 ##SparCC:  Jackson notes
 Fairly straightforward install;
 Download SparCC [here](https://bitbucket.org/yonatanf/sparcc/downloads)
+Unzip the file and cd into the resulting directory. All commands must be run while in this directory.
 Followed the following tutorial http://psbweb05.psb.ugent.be/conet/microbialnetworks/sparcc.php
 ####Make initial correlations
-'python SparCC.py JH_OTUs_nosigs_env.txt -i 10 --cor_file=JH_OTUs_nosigs_env_sparcc.txt > sparcc.log'
+````
+python SparCC.py JH_OTUs_nosigs_env.txt -i 10 --cor_file=JH_OTUs_nosigs_env_sparcc.txt > sparcc.log
+````
 ####Make replicate data sets(i.e. shuffle the data across rows)
-'python MakeBootstraps.py JH_OTUs_nosigs_env.txt -n 100 -o Resamplings/boot'
+````
+python MakeBootstraps.py JH_OTUs_nosigs_env.txt -n 100 -o Resamplings/boot
+````
 Note that you will have to make the directory Resamplings before running the above command. The programs will not automatically make that directory
 ####Calculate correlations for each replicate dataset
-'./Bootstrapping.sh'
+````
+./SparCC_Bootstrapping.sh
+````
 This is a shell script I wrote to iterativley run the correlations. I will add it to the repository.
 ####Compute p-values
-'python PseudoPvals.py JH_OTUs_nosig_env_sparcc.txt Bootstraps/sim_cor 10 -o pvals_two_sided.txt -t 'two_sided' >> sparcc.log
+````
+python PseudoPvals.py JH_OTUs_nosig_env_sparcc.txt Bootstraps/sim_cor 10 -o pvals_two_sided.txt -t 'two_sided' >> sparcc.log
+````
 
 
 ##LSA:  Jeong-Hoon notes
