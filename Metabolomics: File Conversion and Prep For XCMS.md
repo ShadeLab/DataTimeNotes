@@ -6,8 +6,8 @@ For Windows Users
 
 1)	Check to see if you have the following requirements for Proteowizard. If not, download the following before attempting to download Proteowizard:
 a)	[MSVC 2008 SP1 (x86)](http://www.microsoft.com/downloads/details.aspx?familyid=A5C84275-3B97-4AB7-A40D-3802B2AF5FC2&displaylang=en)
-b)	.NET Framework 3.5 SP1 
-c)	4.0 
+b)	[.NET Framework 3.5 SP1](http://www.microsoft.com/downloads/details.aspx?FamilyID=ab99342f-5d1a-413d-8319-81da479ab0d7&displaylang=en) 
+c)	[4.0](http://www.microsoft.com/download/en/details.aspx?id=17851)  
 
 2)	Download proteowizard at http://proteowizard.sourceforge.net/downloads.shtml 
 Download Windows 64-bit installer if working on a 64-bit.
