@@ -34,6 +34,7 @@ c)	Right click data files and select add files to queue. On the left side, speci
 6)	mzXML file is now compatible for XCMS. Transfer file from your computer to the HPCC either by: 
 
 a)	Following Siobhan protocol under Datatime notes 
+
 b)	Filezilla: 
 In the top dialog boxes, enter:
 - Host: hpcc.msu.edu
