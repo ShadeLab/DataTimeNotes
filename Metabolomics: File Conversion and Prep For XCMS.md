@@ -25,7 +25,9 @@ a)	In Filezilla enter the following:
 -	Host: rtsf-ms.bch.msu.edu
 -	Username: msftp 
 -	Password: Mass.spec1234
+
 b)	Find your data by navigating through the following files: /G2-XS QTof/SHADE_LAB.PRO/Data. 
+
 c)	Right click data files and select add files to queue. On the left side, specify where you want the files to be transferred to on your computer by navigating to the appropriate directory. Once all files have been placed in the que and the transfer destination is set, select the Transfer at the header and select process queue. 
 
 
