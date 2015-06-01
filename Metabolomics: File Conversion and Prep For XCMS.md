@@ -37,7 +37,7 @@ a)	Following Siobhan protocol under Datatime notes
 b)	Filezilla: 
 In the top dialog boxes, enter:
 •	(Host) hpcc.msu.edu
-•	(Username) <your username>
-•	(Password) <your password>
+•	(Username) (e.g your username to get onto the hpcc)
+•	(Password) (your password)
 •	(Port) 22
 Transfer in a similar manner as stated above. 
