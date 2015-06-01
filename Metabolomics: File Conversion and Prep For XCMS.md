@@ -5,7 +5,7 @@ The following explains how to take .raw extensions from Water UPLC/MS runs and c
 For Windows Users
 
 1)	Check to see if you have the following requirements for Proteowizard. If not, download the following before attempting to download Proteowizard:
-a)	MSVC 2008 SP1 (x86)
+a)	[MSVC 2008 SP1 (x86)](http://www.microsoft.com/downloads/details.aspx?familyid=A5C84275-3B97-4AB7-A40D-3802B2AF5FC2&displaylang=en)
 b)	.NET Framework 3.5 SP1 
 c)	4.0 
 
