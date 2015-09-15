@@ -8,7 +8,8 @@ The first step was to quality control and properly format our sequencing runs. W
 
 #### Interleaving Reads
 ```
-module load khmer
+module load GNU/4.8.2
+module load khmer/2.0
 interleave-reads.py ../../Cen13DirectAssembly/BBMap/Cen13_mgDNA_Pooled_CTTGTA_L002_R* -o combined.fastq
 ```
 This first step interleaves our paired end reads. This means that each forward read is immediately followed by its mate reverse read.
