@@ -14,7 +14,6 @@ module load khmer/2.0
 
 #### Interleaving Reads
 ```
-module load khmer
 interleave-reads.py ../../Cen13DirectAssembly/BBMap/Cen13_mgDNA_Pooled_CTTGTA_L002_R* -o combined.fastq
 ```
 This first step interleaves our paired end reads. This means that each forward read is immediately followed by its mate reverse read.
