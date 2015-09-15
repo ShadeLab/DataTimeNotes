@@ -53,8 +53,8 @@ The `--12` flag tells megahit that we have paired end data in interleaved format
 #PBS -o /mnt/research/ShadeLab/WorkingSpace/Jackson/QualityFiltering #any other output file directory
 #PBS -N Megahit_QC  #Name of the job
 #PBS -A bicep #Special 
-#PBS -M my_email@gmail.com #email that you want it to send
-#PBS -m abe #send an email to the above adress if it aborts, begins, or has error
+#PBS -M my_email@gmail.com #email that you want it to send messages/warnings
+#PBS -m abe #send an email to the above address if it aborts, begins, or has error
 module load megahit  #load the software 
 cd /mnt/research/ShadeLab/WorkingSpace/Jackson/QualityFiltering #change into the working directory 
 megahit --12 combined_filtered.fastq.pe --k-list 27,37,47,57,67,77,87,97,107 -o Megahit_QC_Assembly/ -t $PBS_NUM_PPN   #the actual code
