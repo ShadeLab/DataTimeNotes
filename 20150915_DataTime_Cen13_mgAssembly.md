@@ -29,6 +29,7 @@ Here we are actually quality filtering our data. We specify that in order to kee
 
 #### 
 ```
+module load GNU/4.8.2
 module load khmer
 extract-paired-reads.py combined_filtered.fastq
 ```
