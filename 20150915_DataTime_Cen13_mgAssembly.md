@@ -6,10 +6,15 @@ Back in December of 2014, we submitted DNA extracted from a Cen13, an active ven
 ###Quality Controlling and Formatting our data
 The first step was to quality control and properly format our sequencing runs. We need to do this in order for the assembler we are using later (Megahit) to make full use of our paired end data. Using the khmer and fastx toolkit modules on hpcc I ran the following commands to interleave, quality control, and match our paired end data. 
 
-#### Interleaving Reads
+###HPCC
 ```
 module load GNU/4.8.2
 module load khmer/2.0
+```
+
+#### Interleaving Reads
+```
+module load khmer
 interleave-reads.py ../../Cen13DirectAssembly/BBMap/Cen13_mgDNA_Pooled_CTTGTA_L002_R* -o combined.fastq
 ```
 This first step interleaves our paired end reads. This means that each forward read is immediately followed by its mate reverse read.
