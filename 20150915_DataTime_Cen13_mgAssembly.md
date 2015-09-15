@@ -46,17 +46,17 @@ megahit --12 combined_filtered.fastq.pe --k-list 27,37,47,57,67,77,87,97,107 -o 
 The `--12` flag tells megahit that we have paired end data in interleaved format. The `--k-list` specifies the length of the different kmers we want megahit to use for assembly. `-o` just specifies the output directory. The most confusing flag here is probably `-t` and what is written after it. `t` is for telling megahit the number of processors to use and `$PBS_NUM_PPN` says to use the number of processors specified in the job script. My full job script for this run is below. 
 ```
 #! /bin/bash
-#PBS -l walltime=07:00:00:00
-#PBS -l mem=400Gb
-#PBS -l nodes=1:ppn=16
-#PBS -e /mnt/research/ShadeLab/WorkingSpace/Jackson/QualityFiltering
-#PBS -o /mnt/research/ShadeLab/WorkingSpace/Jackson/QualityFiltering
-#PBS -N Megahit_QC
-#PBS -A bicep
-#PBS -M my_email@gmail.com
-#PBS -m abe
-module load megahit
-cd /mnt/research/ShadeLab/WorkingSpace/Jackson/QualityFiltering
-megahit --12 combined_filtered.fastq.pe --k-list 27,37,47,57,67,77,87,97,107 -o Megahit_QC_Assembly/ -t $PBS_NUM_PPN   
+#PBS -l walltime=07:00:00:00 #this will take 7 days
+#PBS -l mem=400Gb #anticipated memory max
+#PBS -l nodes=1:ppn=16 #requested nodes
+#PBS -e /mnt/research/ShadeLab/WorkingSpace/Jackson/QualityFiltering #error file output directory
+#PBS -o /mnt/research/ShadeLab/WorkingSpace/Jackson/QualityFiltering #any other output file directory
+#PBS -N Megahit_QC  #Name of the job
+#PBS -A bicep #Special 
+#PBS -M my_email@gmail.com #email that you want it to send
+#PBS -m abe #send an email to the above adress if it aborts, begins, or has error
+module load megahit  #load the software 
+cd /mnt/research/ShadeLab/WorkingSpace/Jackson/QualityFiltering #change into the working directory 
+megahit --12 combined_filtered.fastq.pe --k-list 27,37,47,57,67,77,87,97,107 -o Megahit_QC_Assembly/ -t $PBS_NUM_PPN   #the actual code
 ```
 
