@@ -31,6 +31,7 @@ This step takes the quality controlled data and creates a file of interleaved pa
 Surprisingly, one of the most computationally demanding steps of the process, is one of the easiest to code. Currently, the general consensus is that Megahit is the best assembler out there for metagenomes. It is **FAST** and uses significantly less RAM than other current assemblers. For more information see the [paper](http://bioinformatics.oxfordjournals.org/cgi/pmidlookup?view=long&pmid=25609793), [Titus Brown's Blog Post](http://ivory.idyll.org/blog/2014-how-good-is-megahit.html), and [Adam River's mtRNA Assembly](http://tinyecology.com/assembling-metatranscriptomes-megahit/).  
 #### Megahit Assembly
 ```  
+module load megahit
 megahit --12 combined_filtered.fastq.pe --k-list 27,37,47,57,67,77,87,97,107 -o Megahit_QC_Assembly/ -t $PBS_NUM_PPN
 ```
 
