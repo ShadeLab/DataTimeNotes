@@ -21,6 +21,7 @@ This first step interleaves our paired end reads. This means that each forward r
 
 #### Quality Filtering
 ```
+module load GNU/4.4.5
 module load fastx
 fastq_quality_filter -Q33 -q 30 -p 50 -i combined.fastq -o combined_filtered.fastq
 ```
