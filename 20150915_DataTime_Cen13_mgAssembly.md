@@ -40,7 +40,7 @@ Surprisingly, one of the most computationally demanding steps of the process, is
 ```  
 module load GNU/4.4.5
 module load megahit
-megahit --12 combined_filtered.fastq.pe --k-list 27,37,47,57,67,77,87,97,107 -o Megahit_QC_Assembly/ -t $PBS_NUM_PPN
+megahit --12 combined_filtered.fastq.pe --k-list 27,37,47,57,67,77,87,97,107 -o Megahit_QC_Assembly/ -t 8
 ```
 
 The `--12` flag tells megahit that we have paired end data in interleaved format. The `--k-list` specifies the length of the different kmers we want megahit to use for assembly. `-o` just specifies the output directory. The most confusing flag here is probably `-t` and what is written after it. `t` is for telling megahit the number of processors to use and `$PBS_NUM_PPN` says to use the number of processors specified in the job script. My full job script for this run is below. 
