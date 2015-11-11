@@ -1,4 +1,4 @@
-##Factors affecting OTU over-inflaction
+##Factors affecting OTU over-inflation
 ###Updates
 * Removing sequences with barcode errors recreases the number of OTUs in the mock community by ~10%.  This is still ~9,000 more OTUs than we expect in that community.
 * Outstanding problem:  We still have too many OTUs and we don't know why.
