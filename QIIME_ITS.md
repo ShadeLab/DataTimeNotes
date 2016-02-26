@@ -11,7 +11,7 @@ mv 9143.1.122795.CACGTGACATG.fna 9143.1.122795.CACGTGACATG.fasta
 mv 9143.1.122795.TACAGATGGCT.fna 9143.1.122795.TACAGATGGCT.fasta
 mv 9143.1.122795.TAGAGCCGTTA.fna 9143.1.122795.TAGAGCCGTTA.fasta
 mkdir fastqual
-mv *fna fastqual
+mv *fasta fastqual
 ```
 
 3. Combined fasta files and metadata into one file for analysis
@@ -27,21 +27,39 @@ mv combined_seqs.fna ITS_combined_seqs.fna
 pick_otus.py -i ITS_combined_seqs.fna -s 0.97
 ```
 
-i. pick_otus.py
-ii. pick_rep_set.py
-iii. align_seqs.py
-iv. assign_taxonomy.py
-v. make_otu_table.py
-vi. make_phylogeny.py
-7. Summarized output from pick_open_reference_otus.py
-a. Input: otu_table_mc_w_tax.biom
-b. Output: summary_otu_table_mc2_w_tax.txt
-c. Script: biom summarize_table
-8. Rarefaction: subsampled to the smallest sequencing depth (87129)
-a. Input: otu_table_mc_w_tax.biom
-b. Output: otu_table_mc2_w_tax_even87129.biom
-c. Script: single_rarefaction.py
-9. Summarized output from pick_open_reference_otus.py
-a. Input: otu_table_mc_w_tax_even87129.biom
-b. Output: summary_otu_table_mc2_w_tax_even87129.txt
-c. Script: biom summarize_table
+5. Picked representative sequences
+```
+pick_rep_set.py -i ITS_combined_seqs_otus.txt
+
+```
+6. Align sequences
+```
+align_seqs.py -i ITS_combined_seqs_otus_rep_set.fna
+```
+7. Assign taxonomy
+```
+assign_taxonomy.py -i ITS_combined_seqs_otus_rep_set.fna -t sh_taxonomy_qiime_ver7_97_s_31.01.2016.txt -r sh_refs_qiime_ver7_97_s_31.01.2016.fasta
+```
+8. Make OTU table
+```
+make_otu_table.py -i ITS_combined_seqs_otus_rep_set_w_taxonomy.fna -o ITS_97_otu_table.biom
+```
+9. Make phylogeny
+```
+make_phylogeny.py -i ITS_combined_seqs_otus_rep_set_w_taxonomy.fna 
+```
+
+10 Summarize biom table
+```
+biom summarize_table ITS_97_otu_table.biom
+```
+
+11. Rarefaction: subsample to the smallest sequencing depth 
+```
+single_rarefaction.py -i ITS_97_otu_table.biom -o ITS_97_otu_table_[number].biom
+```
+
+12. Summarize output from rarefied OTU table
+```
+biom summarize_table ITS_97_otu_table_[number].biom
+```
