@@ -13,28 +13,33 @@ mv 9143.1.122795.TAGAGCCGTTA.fna 9143.1.122795.TAGAGCCGTTA.fasta
 mkdir fastqual
 mv *fasta fastqual
 ```
+Output: fasta format for all input files. 
 
 2) Combine fasta files and metadata into one file for analysis
+Made a very simple mapping file based on txt file from sequencing center in raw data folder (ITS_mb_mapping_file.txt). 
 ```
 add_qiime_labels.py -m ITS_mb_mapping_file.txt -i fastqual -c InputFastaFileName  
 mv combined_seqs.fna ITS_combined_seqs.fna
 
 ```
+Output: ITS_combined_seqs.fna
 
 3) Picked OTUs at 97%
 
 ```
 pick_otus.py -i ITS_combined_seqs.fna -s 0.97
 ```
+Output: ITS_combined_seqs_otus.txt
 
 4) Picked representative sequences
 ```
-pick_rep_set.py -i ITS_combined_seqs_otus.txt
+pick_rep_set.py -i uclust_picked_otus/ITS_combined_seqs_otus.txt -f ITS_combined_seqs.fna
 
 ```
+Not picking against a reference set, so used the original fasta file as a reference because QIIME required this (-f flag).
 5) Align sequences
 ```
-align_seqs.py -i ITS_combined_seqs_otus_rep_set.fna
+align_seqs.py -i ITS_combined_seqs.fna_rep_set.fasta
 ```
 6) Assign taxonomy
 ```
