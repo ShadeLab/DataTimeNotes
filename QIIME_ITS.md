@@ -36,7 +36,9 @@ Output: ITS_combined_seqs_otus.txt
 pick_rep_set.py -i uclust_picked_otus/ITS_combined_seqs_otus.txt -f ITS_combined_seqs.fna
 
 ```
-Not picking against a reference set, so used the original fasta file as a reference because QIIME required this (-f flag).
+Not picking against a reference set, so used the original fasta file as a reference because QIIME required this (```-f``` flag).
+Output: ITS_combined_seqs.fna_rep_set.fasta
+
 5) Align sequences
 ```
 align_seqs.py -i ITS_combined_seqs.fna_rep_set.fasta
