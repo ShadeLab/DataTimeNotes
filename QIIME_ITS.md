@@ -43,10 +43,18 @@ Output: ITS_combined_seqs.fna_rep_set.fasta
 ```
 align_seqs.py -i ITS_combined_seqs.fna_rep_set.fasta
 ```
+
+2.27.16
 6) Assign taxonomy
 ```
 assign_taxonomy.py -i ITS_combined_seqs_otus_rep_set.fna -t sh_taxonomy_qiime_ver7_97_s_31.01.2016.txt -r sh_refs_qiime_ver7_97_s_31.01.2016.fasta
 ```
+
+2.29.16
+Checked output of assigning taxonomy. There was only a log file, no output file. There was an error: "burrito.util.ApplicationError: Unacceptable application exit status: 137" which some Googling suggested was due to a memory error. This makes sense as I went ahead and ran it on the HPCC without submitting it as a job so it was probably killed. Whoops. 
+
+
+To do:
 7) Make OTU table
 ```
 make_otu_table.py -i ITS_combined_seqs_otus_rep_set_w_taxonomy.fna -o ITS_97_otu_table.biom
