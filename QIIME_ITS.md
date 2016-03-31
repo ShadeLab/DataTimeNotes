@@ -93,6 +93,41 @@ Try to pick OTUs using usearch. Not sure if this is an HPCC issue or a QIIME 1.9
 module load usearch/5.2.236
 pick_otus.py -i 100_ITS_combined_seqs.fna -m usearch_ref -o USEARCH_REF -r ../sh_refs_qiime_ver7_97_s_31.01.2016.fasta --word_length 350 --suppress_reference_chimera_detection
 ```
+Output:
+```
+ValueError: No data following filter steps, please check parameter settings for usearch_qf.
+```
+Checked the log file and it turns out there was actually no error. It completed. Sooooo:
+
+```
+assign_taxonomy.py -i clustered_error_corrected.fasta -t sh_taxonomy_qiime_ver7_97_s_31.01.2016.txt -r sh_refs_qiime_ver7_97_s_31.01.2016.fasta -o taxonomy_0331_2
+grep Unassigned clustered_error_corrected_tax_assignments.txt | wc -l
+```
+89% of these OTUs are unassigned. Maybe I should try closed reference OTU picking?
+
+```
+pick_closed_reference_otus.py -i 100_ITS_combined_seqs.fna -o Closed_Ref_OTUs_0331 -r sh_refs_qiime_ver7_97_s_31.01.2016.fasta --assign_taxonomy
+```
+Failure: "Attempting to write an empty BIOM table to disk." qiime.util.EmptyBIOMTableError: Attempting to write an empty BIOM table to disk. QIIME doesn't support writing empty BIOM output files.
+Checked the log file: "Num OTUs:0
+Num new OTUs:0
+Num failures:100"
+
+The [description page for pick_closed_reference_otus.py](http://qiime.org/scripts/pick_closed_reference_otus.html) suggests that if all sequences are failing to hit the database, they may be in reverse orientation with respect to the database. To fix this, pass a parameters file containing "pick_otus:enable_rev_strand_match True"
+
+```
+pick_closed_reference_otus.py -i 100_ITS_combined_seqs.fna -p parameters_0331 -o Closed_Ref_OTUs_0331_2 -r sh_refs_qiime_ver7_97_s_31.01.2016.fasta --assign_taxonomy
+```
+Same error. Try giving it a taxonomy file?
+
+```
+pick_closed_reference_otus.py -i 100_ITS_combined_seqs.fna -p parameters_0331 -o Closed_Ref_OTUs_0331_2 -r sh_refs_qiime_ver7_97_s_31.01.2016.fasta --assign_taxonomy -t sh_taxonomy_qiime_ver7_97_s_31.01.2016.txt
+```
+Failed again. 
+Added to the parameters file:
+```
+pick_otus:prefilter_identical_sequences False
+```
 
 
 
