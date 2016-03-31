@@ -70,6 +70,31 @@ source software/loadanaconda2.sh
 assign_taxonomy.py -i Cusack/ITS_combined_seqs.fna_rep_set.fasta -t Cusack/sh_taxonomy_qiime_ver7_97_s_31.01.2016.txt -r Cusack/sh_refs_qiime_ver7_97_s_31.01.2016.fasta -o Cusack/taxonomy_0229
 ```
 
+3.31.16 Checking the output of the qsub I submitted last month
+
+```
+grep Unassigned ITS_combined_seqs.fna_rep_set_tax_assignments.txt | wc -l
+```
+Output (number of unassigned OTUs): 1120035
+```
+grep denovo* ITS_combined_seqs.fna_rep_set_tax_assignments.txt | wc -l
+```
+Output (total number of OTUs): 1369421
+
+Percentage of unassigned OTUs: 81.8%. That's not ok. 
+Maybe try clustering OTUs with the Unite db instead of denovo.
+
+Making a much smaller file to play around with to make sure things will work before I submit a giant job.
+```
+head -n 200 ITS_combined_seqs.fna>100_ITS_combined_seqs.fna
+```
+Try to pick OTUs using usearch. Not sure if this is an HPCC issue or a QIIME 1.9.1 issue, but the version of usearch that is supported is 5.2.236; the most recent version is 8.1.1803. 
+```
+module load usearch/5.2.236
+pick_otus.py -i 100_ITS_combined_seqs.fna -m usearch_ref -o USEARCH_REF -r ../sh_refs_qiime_ver7_97_s_31.01.2016.fasta --word_length 350 --suppress_reference_chimera_detection
+```
+
+
 
 
 To do:
